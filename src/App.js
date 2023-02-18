@@ -6,7 +6,7 @@ import Explore from "./pages/Explore";
 import CreateBlog from "./pages/CreateBlog";
 import LoginAndSignup from "./pages/LoginAndSignup";
 import Register from "./pages/Register";
-
+import Reset from "./pages/Reset";
 
 import './App.css'
 import Navbar from "./Components/Navbar";
@@ -25,6 +25,7 @@ function App() {
                 <Route exact path="/register" element={<Register />} />
                 <Route exact path="/login" element={<LoginAndSignup/>} />
                 <Route exact path="/explore" element={<Explore/>} />
+                <Route exact path="/reset" element={<Reset/>} />
                 </Routes>
             </Router>
             

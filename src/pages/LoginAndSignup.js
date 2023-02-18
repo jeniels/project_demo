@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, signInWithEmailAndPassword, signInWithGoogle } from "../firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -9,21 +9,28 @@ function Login() {
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
-  
-  
-  const handleLogin = async () => {
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      if(auth)
-      {
-        navigate("/explore");
-      }
+      navigate("/explore");
     } catch (error) {
-      console.error(error);
-      alert("Failed to sign in");
+      console.log(error);
+      alert(error);
+    }
+  };
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+      navigate("/explore"); // Redirect to dashboard after successful sign in
+    } catch (error) {
+      console.log(error.message);
+      alert("Google sign in failed. Please try again later.");
     }
   };
 
+ 
   return (
     <div className="login">
       <div className="login__container">
@@ -44,7 +51,7 @@ function Login() {
         <button className="login__btn" onClick={handleLogin}>
           Login
         </button>
-        <button className="login__btn login__google" onClick={signInWithGoogle}>
+        <button className="login__btn login__google" onClick={handleGoogleSignIn}>
           Login with Google
         </button>
         <div>

@@ -7,6 +7,7 @@ import {
   signInWithGoogle,
 } from "../firebase-config";
 import "./Register.css";
+
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,16 +19,10 @@ function Register() {
   const handleRegister = async () => {
     try {
       await registerWithEmailAndPassword(email, password, name, gender);
-      //navigate("/explore"); // Redirect to dashboard after successful registration
-      
-        // auth?navigate("/explore"):null;
-        
-        {
-          navigate("/login");
-        }
-      
+      navigate("/login"); // Redirect to dashboard after successful registration
     } catch (error) {
       console.log(error.message);
+      alert(error);
     }
   };
 
@@ -64,16 +59,11 @@ function Register() {
       <button className="register__btn" onClick={handleRegister}>
         Register
       </button>
-      <button
-        className="register__btn register__google"
-        onClick={signInWithGoogle}
-      >
-        Register with Google
-      </button>
       <div>
-        Already have an account? <Link to="/login">Login</Link> now.
+      Already have an account? <Link to="/login">Login</Link> now.
       </div>
     </div>
   );
 }
+
 export default Register;
